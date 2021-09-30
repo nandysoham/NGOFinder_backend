@@ -13,7 +13,7 @@ const blogRecentRoutes = require("./routes/recentblogpostRoutes")
 env.config();
 
 app.use(express.json())
-
+app.use('/static', express.static('uploads'))
 
 app.use('/api',blogentryRoutes); 
 app.use('/api',blogRecentRoutes); 
