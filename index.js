@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const app = express();
 
 const blogentryRoutes = require("./routes/blogentryRoutes")
+const blogRecentRoutes = require("./routes/recentblogpostRoutes")
 
 
 // env variables are contsant throughout and dotenv package is required for that
@@ -15,7 +16,7 @@ app.use(express.json())
 
 
 app.use('/api',blogentryRoutes); 
-
+app.use('/api',blogRecentRoutes); 
 
 
 // this can be created from the .env file
