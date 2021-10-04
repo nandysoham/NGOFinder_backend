@@ -31,6 +31,7 @@ app.use('/api',readIndivBlogRoutes);
 // `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.ihdlx.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`, 
 
 mongoose.connect(
+    // process.env.MONGOURI,
     'mongodb://localhost:27017/ecology',
         {
             useNewUrlParser: true,
