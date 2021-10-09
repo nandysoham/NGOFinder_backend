@@ -22,17 +22,14 @@ app.use('/api',blogRecentRoutes);
 app.use('/api',readIndivBlogRoutes); 
 
 
-// app.use('/todos/:id', function (req, res, next) {
-//     console.log('Request Id:', req.params.id);
-//     res.json("success" );
-//   });
+
 
 // this can be created from the .env file
 // `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.ihdlx.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`, 
 
 mongoose.connect(
-    // process.env.MONGOURI,
-    'mongodb://localhost:27017/ecology',
+    process.env.MONGOURI,
+    // 'mongodb://localhost:27017/ecology',
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
