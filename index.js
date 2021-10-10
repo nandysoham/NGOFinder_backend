@@ -9,6 +9,7 @@ const app = express();
 const blogentryRoutes = require("./routes/blogentryRoutes")
 const blogRecentRoutes = require("./routes/recentblogpostRoutes")
 const readIndivBlogRoutes = require("./routes/readindivblog")
+const newsLetterRoutes = require("./routes/newsLetter")
 
 // env variables are contsant throughout and dotenv package is required for that
 env.config();
@@ -20,6 +21,7 @@ app.use('/static', express.static('uploads'))
 app.use('/api',blogentryRoutes); 
 app.use('/api',blogRecentRoutes); 
 app.use('/api',readIndivBlogRoutes); 
+app.use('/api',newsLetterRoutes); 
 
 
 

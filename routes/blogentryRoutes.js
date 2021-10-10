@@ -5,6 +5,7 @@ const shortid = require('shortid')
 const path = require('path')
 
 const {createBlog} = require("../controller/createBlog")
+const {mailer} = require("../controller/sendnewsmail")
 
 // creating a middleware for multer
 
@@ -24,6 +25,6 @@ const storage = multer.diskStorage({
 
 
 
-router.post('/blog/create',upload.array('blogPictures'),createBlog)  //upload.single() --> for profile photo
+router.post('/blog/create',upload.array('blogPictures'),createBlog,mailer)  //upload.single() --> for profile photo
 
 module.exports = router;
