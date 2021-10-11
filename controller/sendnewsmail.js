@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const express = require('express')
-// ecoprojectteam123@gmail.com
-// ecology$123
+
 
 const Newsletter = require("../models/Newsletter")
 
