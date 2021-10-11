@@ -9,6 +9,7 @@ exports.createBlog= (req,res,next)=>{
     console.log("this is from the request");
 
     const { title,name, description} =req.body;
+    console.log(req.body)
     // blogPictures will not be avalable in the body of the request
     // console.log("this is from the controller")
     // console.log(title);
@@ -21,6 +22,7 @@ exports.createBlog= (req,res,next)=>{
         })
     }
     // am ap is applied here
+
 
     const blog = new Blog({
         title: title,

@@ -4,9 +4,11 @@ const { body, validationResult } = require('express-validator');
 
 const Newsletter = require("../models/Newsletter")
 
-router.post("/addtonewsletter",[
-    body('email').isEmail()
-],async (req,res)=>{
+router.post("/addtonewsletter",
+    [
+        body('email').isEmail()
+    ]
+    ,async (req,res)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

@@ -10,18 +10,25 @@ const blogentryRoutes = require("./routes/blogentryRoutes")
 const blogRecentRoutes = require("./routes/recentblogpostRoutes")
 const readIndivBlogRoutes = require("./routes/readindivblog")
 const newsLetterRoutes = require("./routes/newsLetter")
+const indivusercrudRoutes = require("./routes/Individual/usercrud")
 
 // env variables are contsant throughout and dotenv package is required for that
 env.config();
 
 app.use(cors())
 app.use(express.json())
+// parse application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false }))
+
+
+
 app.use('/static', express.static('uploads'))
 
 app.use('/api',blogentryRoutes); 
 app.use('/api',blogRecentRoutes); 
 app.use('/api',readIndivBlogRoutes); 
 app.use('/api',newsLetterRoutes); 
+app.use("/api",indivusercrudRoutes);
 
 
 
