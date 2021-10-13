@@ -7,11 +7,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const fileUpload = require('express-fileupload')
-const app = express();
-
-app.use(fileUpload());
-
+const mailindiv = require("../../controller/Mailer/MailIndiv")
 
 const indivUser = require("../../models/Individual/indivUser")
 
@@ -87,6 +83,34 @@ router.post('/createuser',
         const authtoken = jwt.sign(data, JWT_SECRET)
 
         res.json(authtoken)
+
+        const htmlcode=`
+
+        <div class="container" style="background-image:url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1774&q=80') ; color: azure; background-repeat: no-repeat; background-position: center; min-height: 100vh;">
+        <h1> <center> Hey ${req.body.name} Welcome to NGO Helper!!! </center> </h1> <br>
+                <h3> <center> Thanks for joining us! we are glad to help you in your journey to choose a NGo</center> </h3>
+                <p>Search for NGOs near you on our maps and choose the one which suits you the best
+                    Also don't forget to have an eye over the blog section which has some amazing blogs describing real life 
+                    incidences and stories.
+                
+                </p>
+                </div>
+                <p><center>Tune in for more content and news</center></p> 
+                <h6><center>All rights reserved @Ecology Team </center></h6>
+        
+
+        `
+
+
+        const params = {
+            to:req.body.email,
+            subject:"Welcome to NGO helper",
+            html:htmlcode
+
+        }
+
+        mailindiv(params);
+
 
 
 

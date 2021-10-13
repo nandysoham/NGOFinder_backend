@@ -10,7 +10,9 @@ const blogentryRoutes = require("./routes/blogentryRoutes")
 const blogRecentRoutes = require("./routes/recentblogpostRoutes")
 const readIndivBlogRoutes = require("./routes/readindivblog")
 const newsLetterRoutes = require("./routes/newsLetter")
-const indivusercrudRoutes = require("./routes/Individual/usercrud")
+const indivusercrudRoutes = require("./routes/Individual/useradd")
+const indivuserloginRoutes = require("./routes/Individual/userlogin")
+const changedetailsindivuserRoutes = require("./routes/Individual/changedetails")
 
 // env variables are contsant throughout and dotenv package is required for that
 env.config();
@@ -29,7 +31,8 @@ app.use('/api',blogRecentRoutes);
 app.use('/api',readIndivBlogRoutes); 
 app.use('/api',newsLetterRoutes); 
 app.use("/api",indivusercrudRoutes);
-
+app.use("/api",indivuserloginRoutes);
+app.use("/api",changedetailsindivuserRoutes);
 
 
 
