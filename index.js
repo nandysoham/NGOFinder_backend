@@ -14,6 +14,8 @@ const indivusercrudRoutes = require("./routes/Individual/useradd")
 const indivuserloginRoutes = require("./routes/Individual/userlogin")
 const changedetailsindivuserRoutes = require("./routes/Individual/changedetails")
 
+
+const findindivlocationRoutes = require("./routes/findindivLocation")
 // env variables are contsant throughout and dotenv package is required for that
 env.config();
 
@@ -33,6 +35,7 @@ app.use('/api',newsLetterRoutes);
 app.use("/api",indivusercrudRoutes);
 app.use("/api",indivuserloginRoutes);
 app.use("/api",changedetailsindivuserRoutes);
+app.use("/api",findindivlocationRoutes);
 
 
 
