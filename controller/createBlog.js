@@ -4,11 +4,12 @@ const shortid = require('shortid')  // shortid is imported here
 const slugify = require('slugify')
 
 
-exports.createBlog= (req,res)=>{
+exports.createBlog= (req,res,next)=>{
 
     console.log("this is from the request");
 
     const { title,name, description} =req.body;
+    console.log(req.body)
     // blogPictures will not be avalable in the body of the request
     // console.log("this is from the controller")
     // console.log(title);
@@ -22,6 +23,7 @@ exports.createBlog= (req,res)=>{
     }
     // am ap is applied here
 
+
     const blog = new Blog({
         title: title,
         name : name,
@@ -31,11 +33,15 @@ exports.createBlog= (req,res)=>{
     })
 
     blog.save((error, blog)=>{
-        if(error) return res.status(400).json({error})
+        if(error) return res.status(400).json({error:error})
         if(blog){
-            return res.status(201).json({blog})
+            req.blog = blog
+            next()
+            // return res.status(201).json({success:"success"})
         }
     })
+    
+    
 
 
 }
