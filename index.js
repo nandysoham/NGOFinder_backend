@@ -13,7 +13,7 @@ const newsLetterRoutes = require("./routes/newsLetter")
 const indivusercrudRoutes = require("./routes/Individual/useradd")
 const indivuserloginRoutes = require("./routes/Individual/userlogin")
 const changedetailsindivuserRoutes = require("./routes/Individual/changedetails")
-
+const changepassindivmailRoutes = require("./routes/Individual/updatepassword")
 
 const findindivlocationRoutes = require("./routes/findindivLocation")
 // env variables are contsant throughout and dotenv package is required for that
@@ -23,7 +23,6 @@ app.use(cors())
 app.use(express.json())
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
-
 
 
 app.use('/static', express.static('uploads'))
@@ -36,6 +35,7 @@ app.use("/api",indivusercrudRoutes);
 app.use("/api",indivuserloginRoutes);
 app.use("/api",changedetailsindivuserRoutes);
 app.use("/api",findindivlocationRoutes);
+app.use("/api",changepassindivmailRoutes);
 
 
 
