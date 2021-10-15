@@ -20,6 +20,7 @@ const changedetailscompanyuserRoutes = require("./routes/Company/changedetails")
 const companyuserloginRoutes = require("./routes/Company/userlogin")
 const changepasscompanymailRoutes = require("./routes/Company/updatepassword")
 
+const showcompanybydistanceRoutes = require("./routes/Company/showcompanies")
 
 const findindivlocationRoutes = require("./routes/findindivLocation")
 // env variables are contsant throughout and dotenv package is required for that
@@ -48,6 +49,9 @@ app.use("/api",companyaddRoutes);
 app.use("/api",changedetailscompanyuserRoutes);
 app.use("/api",companyuserloginRoutes);
 app.use("/api",changepasscompanymailRoutes)
+
+
+app.use("/api", showcompanybydistanceRoutes)
 
 
 // this can be created from the .env file
