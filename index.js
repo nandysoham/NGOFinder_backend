@@ -33,6 +33,7 @@ app.use(express.urlencoded({ extended: false }))
 
 
 app.use('/static', express.static('uploads'))
+app.use('/staticcompany', express.static('CompanyUseruploads'))
 
 app.use('/api',blogentryRoutes); 
 app.use('/api',blogRecentRoutes); 

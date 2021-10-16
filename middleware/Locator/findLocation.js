@@ -17,7 +17,7 @@ exports.findLocation = (req,res,next)=>{
             req.client_lat = response.data.geoplugin_latitude;
             req.client_long = response.data.geoplugin_longitude;
             // console.log(response);
-            console.log(req.client_lat," , ", req.client_long);
+            // console.log(req.client_lat," , ", req.client_long);
             if(req.client_lat && req.client_long){
                 next();
             }
