@@ -1,5 +1,5 @@
 const express = require('express')
-const { findLocation } = require('../../middleware/Locator/findLocation')
+const { findLocation } = require('../../middleware/Locator/findLocation2')
 const router = express.Router()
 
 const companyUser = require('../../models/Company/companyUser')
