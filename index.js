@@ -10,6 +10,8 @@ const blogentryRoutes = require("./routes/blogentryRoutes")
 const blogRecentRoutes = require("./routes/recentblogpostRoutes")
 const readIndivBlogRoutes = require("./routes/readindivblog")
 const newsLetterRoutes = require("./routes/newsLetter")
+
+const indivuserdetailsRoutes = require("./routes/Individual/getindivdetails")
 const indivusercrudRoutes = require("./routes/Individual/useradd")
 const indivuserloginRoutes = require("./routes/Individual/userlogin")
 const changedetailsindivuserRoutes = require("./routes/Individual/changedetails")
@@ -33,6 +35,7 @@ app.use(express.urlencoded({ extended: false }))
 
 
 app.use('/static', express.static('uploads'))
+app.use('/staticindiv', express.static('Useruploads'))
 app.use('/staticcompany', express.static('CompanyUseruploads'))
 app.use('/staticerrors', express.static('erroruploads'))
 
@@ -40,6 +43,8 @@ app.use('/api',blogentryRoutes);
 app.use('/api',blogRecentRoutes); 
 app.use('/api',readIndivBlogRoutes); 
 app.use('/api',newsLetterRoutes); 
+
+app.use("/api", indivuserdetailsRoutes)
 app.use("/api",indivusercrudRoutes);
 app.use("/api",indivuserloginRoutes);
 app.use("/api",changedetailsindivuserRoutes);

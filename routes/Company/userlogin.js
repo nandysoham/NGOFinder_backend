@@ -14,23 +14,25 @@ router.post('/company/login', [
     body('email').isEmail(),
     body('password', "password cannot be blank").exists(),
 ], async (req, res) => {
+    let success = false;
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({success:success, errors: errors.array() });
     }
 
     const { email, password } = req.body;
     try {
         let user = await companyUser.findOne({ email })
         if (!user) {
-            return res.status(400).json({ error: " Please enter correct credentials" })
+            return res.status(400).json({success:success, error: " Please enter correct credentials" })
         }
 
         // comparing the passwords
 
         const passCompare = await bcrypt.compare(password, user.password)
         if (!passCompare) {
-            return res.status(400).json({ error: " Please enter correct credentials" })
+            return res.status(400).json({success:success,error: " Please enter correct credentials" })
         }
 
 
@@ -43,13 +45,14 @@ router.post('/company/login', [
         }
 
         const authtoken = jwt.sign(data, JWT_SECRET)
-
-        res.json(authtoken)
+        success = true;
+        res.json({success,type:"company" ,authtoken,user})
 
 
     } catch (error) {
+        success = false;
         console.log(error);
-        res.status(500).send("some internal server error occured")
+        res.status(500).json({success:success,error:"some internal server error occured"})
     }
 
 })
