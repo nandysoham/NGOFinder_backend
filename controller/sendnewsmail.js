@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const express = require('express')
 
-
+const parse = require("html-react-parser");
 const Newsletter = require("../models/Newsletter")
 
 exports.mailer = (req,res) => {
@@ -34,7 +34,7 @@ exports.mailer = (req,res) => {
 
             <h4> <center> By ${req.blog.name} </center><h4> 
             
-            <p style="color: grey">${req.blog.description.toString().slice(0,200)+"...."} </p> <br>
+            <p style="color: grey">${parse(req.blog.about)} </p> <br>
 
             <h4> Check it out at http://localhost:3000/blogs/${req.blog._id} </h4> 
 

@@ -10,9 +10,17 @@ const blogSchema = new mongoose.Schema({
         required : true,
         trim: true
     },
+    userid:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'indivUser'
+    },
     slug : {
         type : String,
         required : true,
+    },
+    about:{
+        type : String,
+
     },
     description :{
         type : String,

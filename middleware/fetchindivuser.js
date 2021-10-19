@@ -9,6 +9,7 @@ const fetchUser = (req,res,next)=>{
     if(!token){
         res.status(401).json({error:" please authenticate first"})
     }
+    // console.log(req.files)
     try {
         const data = jwt.verify(token,JWT_SECRET);
         req.user = data.user

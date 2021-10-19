@@ -8,7 +8,7 @@ exports.createBlog= (req,res,next)=>{
 
     console.log("this is from the request");
 
-    const { title,name, description} =req.body;
+    const { title,name,about, description} =req.body;
     console.log(req.body)
     // blogPictures will not be avalable in the body of the request
     // console.log("this is from the controller")
@@ -21,13 +21,17 @@ exports.createBlog= (req,res,next)=>{
             return {img : file.filename}
         })
     }
+    // console.log(req.files);
+    // console.log(blogPictures);
     // am ap is applied here
 
 
     const blog = new Blog({
         title: title,
         name : name,
+        about:about,
         slug : slugify(title),
+        userid : req.user.id,
         description,
         blogPictures
     })

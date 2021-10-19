@@ -8,7 +8,7 @@ const {createBlog} = require("../controller/createBlog")
 const {mailer} = require("../controller/sendnewsmail")
 
 // creating a middleware for multer
-
+const fetchUser = require("../middleware/fetchindivuser")
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -25,6 +25,6 @@ const storage = multer.diskStorage({
 
 
 
-router.post('/blog/create',upload.array('blogPictures'),createBlog,mailer)  //upload.single() --> for profile photo
+router.post('/blog/create',upload.array('blogPictures'),fetchUser,createBlog,mailer)  //upload.single() --> for profile photo
 
 module.exports = router;
