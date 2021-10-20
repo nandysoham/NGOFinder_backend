@@ -15,6 +15,7 @@ exports.findLocation = (req,res,next)=>{
             // res.status(200).send(response.data)
             req.client_lat = response.data.latitude;
             req.client_long = response.data.longitude;
+            req.client_city = response.data.city;
             // console.log(response);
             // console.log(req.client_lat," , ", req.client_long);
             if(req.client_lat && req.client_long){
