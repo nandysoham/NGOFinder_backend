@@ -28,6 +28,10 @@ const blogSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
+    authorPicture :{
+        type: String,
+        required : true
+    },
     blogPictures :[
         {img : {type : String}}
     ],
