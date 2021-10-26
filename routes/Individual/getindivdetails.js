@@ -4,7 +4,7 @@ const fetchUser = require("../../middleware/fetchindivuser")
 
 const indivUser = require("../../models/Individual/indivUser")
 
-router.get("/indiv/getindivdetails",fetchUser,async (req,res)=>{
+router.post("/indiv/getindivdetails",fetchUser,async (req,res)=>{
     // res.status(200).json(req.user)
     let success = false
     try {

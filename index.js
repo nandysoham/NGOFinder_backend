@@ -16,6 +16,7 @@ const indivusercrudRoutes = require("./routes/Individual/useradd")
 const indivuserloginRoutes = require("./routes/Individual/userlogin")
 const changedetailsindivuserRoutes = require("./routes/Individual/changedetails")
 const changepassindivmailRoutes = require("./routes/Individual/updatepassword")
+const publicindivdetailsRoutes = require("./routes/Individual/getpublicdetails")
 
 const companyaddRoutes = require("./routes/Company/companyadd")
 const changedetailscompanyuserRoutes = require("./routes/Company/changedetails")
@@ -26,6 +27,11 @@ const showcompanybydistanceRoutes = require("./routes/Company/showcompanies")
 
 const findindivlocationRoutes = require("./routes/findindivLocation")
 const findweatherRoutes = require("./routes/fetchweather")
+
+
+
+const commentaddRoutes = require("./routes/pushcomments")
+const findcommentsRoutes = require("./routes/findcomments")
 // env variables are contsant throughout and dotenv package is required for that
 env.config();
 
@@ -51,6 +57,7 @@ app.use("/api",indivuserloginRoutes);
 app.use("/api",changedetailsindivuserRoutes);
 app.use("/api",findindivlocationRoutes);
 app.use("/api",changepassindivmailRoutes);
+app.use("/api",publicindivdetailsRoutes)
 
 
 app.use("/api",companyaddRoutes);
@@ -61,6 +68,10 @@ app.use("/api",changepasscompanymailRoutes)
 
 app.use("/api", showcompanybydistanceRoutes)
 app.use("/api", findweatherRoutes)
+
+
+app.use("/api",commentaddRoutes)
+app.use("/api",findcommentsRoutes)
 
 
 
