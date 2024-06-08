@@ -2,17 +2,54 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer')  // multer is imported here
+const path = require('path')
 
 const mailindiv = require("../../controller/Mailer/MailIndiv")
 const indivUser = require("../../models/Individual/indivUser")
 
 const fetchUser = require("../../middleware/fetchindivuser")
 // raw data json body
-router.put('/indiv/updateuserdetails/:id', fetchUser, async (req, res) => {
+
+
+
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: (req, file) => {
+        const folderPath = `EcoImg/IndivProfile`; // Update the folder path here
+        const fileExtension = path.extname(file.originalname).substring(1);
+        const publicId = `${file.fieldname}-${Date.now()}`;
+
+        return {
+            folder: folderPath,
+            public_id: publicId,
+            format: fileExtension,
+        };
+    },
+});
+
+var upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 50 * 1024 * 1024, // keep images size < 50 MB
+    }
+})
+router.put('/indiv/updateuserdetails', fetchUser, upload.array('profilePicture'), async (req, res) => {
 
     try {
         const {
             name,
+            about,
             email,
             dob,
             phone,
@@ -30,6 +67,10 @@ router.put('/indiv/updateuserdetails/:id', fetchUser, async (req, res) => {
 
         if (email) {
             newIndivUser.email = email
+        }
+
+        if(about){
+            newIndivUser.about = about
         }
 
         if (dob) {
@@ -64,20 +105,37 @@ router.put('/indiv/updateuserdetails/:id', fetchUser, async (req, res) => {
             newIndivUser.pincode = pincode
         }
 
-
-        userindiv = await indivUser.findById(req.params.id);
+        const id = req.user.id;
+        userindiv = await indivUser.findById(id);
         if (!userindiv) { return res.status(404).send("User doesnot doesnot exist") }
 
-        // checking whether the request is from the same user
+        if (req.files.length > 0) {
+            profilePicture = req.files.map(file => {
+                return { img: file.path , public_id : file.filename}
+            })
 
-        if (userindiv._id.toString() !== req.user.id) {
-            return res.status(401).send("not allowed")
+            let prevProfilePicture = userindiv.profilePicture
+            try {
+                prevProfilePicture.forEach(async (obj) => {
+                    cloudinary.api
+                        .delete_resources_by_prefix(obj.public_id)
+                        .then(result => console.log(result))
+                        .catch(err => console.log(err));
+
+                    
+                })
+            }
+            catch (e) {
+                console.log(e)
+                console.log("Unable to delete previous resources from cloud")
+            }
         }
 
 
-        // if upto this  --> everything is fine upto now
-        console.log(newIndivUser);
-        userindiv = await indivUser.findByIdAndUpdate(req.params.id, { $set: newIndivUser }, { new: true });
+        newIndivUser.profilePicture = profilePicture
+
+        // console.log(newIndivUser);
+        userindiv = await indivUser.findByIdAndUpdate(id, { $set: newIndivUser }, { new: true });
         res.json(userindiv);
 
 

@@ -2,13 +2,47 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const multer = require('multer')  // multer is imported here
 const mailindiv = require("../../controller/Mailer/MailIndiv")
 const companyUser = require("../../models/Company/companyUser")
+const path = require('path')
 
 const fetchUser = require("../../middleware/fetchindivUser")
 // raw data json body
-router.put('/company/updateuserdetails/:id', fetchUser, async (req, res) => {
+
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: (req, file) => {
+        const folderPath = `EcoImg/CompanyProfile`; // Update the folder path here
+        const fileExtension = path.extname(file.originalname).substring(1);
+        const publicId = `${file.fieldname}-${Date.now()}`;
+
+        return {
+            folder: folderPath,
+            public_id: publicId,
+            format: fileExtension,
+        };
+    },
+});
+
+var upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 50 * 1024 * 1024, // keep images size < 50 MB
+    }
+})
+
+router.put('/company/updateuserdetails', fetchUser, upload.array('companyPictures'), async (req, res) => {
 
     try {
         const {
@@ -27,7 +61,9 @@ router.put('/company/updateuserdetails/:id', fetchUser, async (req, res) => {
             country,
             pincode,
             lattitude,
-            longitude
+            longitude,
+            about,
+            website
         } = req.body;
         const newcompanyUser = {}
         if (companyname) {
@@ -42,12 +78,20 @@ router.put('/company/updateuserdetails/:id', fetchUser, async (req, res) => {
             newcompanyUser.email = email
         }
 
-        if(parentcompany){
-            newcompanyUser.parentcompany= parentcompany
+        if (website) {
+            newcompanyUser.website = website
         }
 
-        if(contactperson){
-            newcompanyUser.contactperson= contactperson
+        if (about) {
+            newcompanyUser.about = about
+        }
+
+        if (parentcompany) {
+            newcompanyUser.parentcompany = parentcompany
+        }
+
+        if (contactperson) {
+            newcompanyUser.contactperson = contactperson
         }
 
         if (established) {
@@ -94,19 +138,54 @@ router.put('/company/updateuserdetails/:id', fetchUser, async (req, res) => {
             newcompanyUser.longitude = longitude
         }
 
-        usercompany = await companyUser.findById(req.params.id);
+        let companyPictures = [];
+
+
+        const id = req.user.id
+        usercompany = await companyUser.findById(id);
         if (!usercompany) { return res.status(404).send("User doesnot doesnot exist") }
 
+        if (req.files.length > 0) {
+            companyPictures = req.files.map(file => {
+                return { img: file.path , public_id : file.filename}
+            })
+
+            let prevCompanyPictures = usercompany.companyPictures
+            try {
+                prevCompanyPictures.forEach(async (obj) => {
+                    cloudinary.api
+                        .delete_resources_by_prefix(obj.public_id)
+                        .then(result => console.log(result))
+                        .catch(err => console.log(err));
+
+                    // try {
+                    //     const results = await cloudinary.uploader.destroy(
+                    //       obj.public_id, { invalidate: true, resource_type: "image" })
+                    //     console.log(results)
+                    //   }
+                    //   catch (e) {
+                    //     res.status(500).json('Something went wrong')
+                    //   }
+                })
+            }
+            catch (e) {
+                console.log(e)
+                console.log("Unable to delete previous resources from cloud")
+            }
+        }
+
+
+        newcompanyUser.companyPictures = companyPictures
         // checking whether the request is from the same user
 
-        if (usercompany._id.toString() !== req.user.id) {
-            return res.status(401).send("not allowed")
-        }
+        // if (usercompany._id.toString() !== req.user.id) {
+        //     return res.status(401).send("not allowed")
+        // }
 
 
         // if upto this  --> everything is fine upto now
         console.log(newcompanyUser);
-        usercompany = await companyUser.findByIdAndUpdate(req.params.id, { $set: newcompanyUser }, { new: true });
+        usercompany = await companyUser.findByIdAndUpdate(id, { $set: newcompanyUser }, { new: true });
         res.json(usercompany);
 
 
@@ -128,9 +207,9 @@ router.put('/company/updateuserdetails/:id', fetchUser, async (req, res) => {
         `
 
         const params = {
-            to:usercompany.email,
-            subject:"Cheers!!! Details successfully updated",
-            html:htmlcode
+            to: usercompany.email,
+            subject: "Cheers!!! Details successfully updated",
+            html: htmlcode
         }
 
         mailindiv(params)

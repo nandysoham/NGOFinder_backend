@@ -22,6 +22,8 @@ const companyaddRoutes = require("./routes/Company/companyadd")
 const changedetailscompanyuserRoutes = require("./routes/Company/changedetails")
 const companyuserloginRoutes = require("./routes/Company/userlogin")
 const changepasscompanymailRoutes = require("./routes/Company/updatepassword")
+const companyUserDetails = require("./routes/Company/getindivdetails");
+const companyUserPublicDetails = require("./routes/Company/getPublicDetails")
 
 const showcompanybydistanceRoutes = require("./routes/Company/showcompanies")
 
@@ -32,6 +34,9 @@ const findweatherRoutes = require("./routes/fetchweather")
 
 const commentaddRoutes = require("./routes/pushcomments")
 const findcommentsRoutes = require("./routes/findcomments")
+
+
+const uploadingRoutes = require("./routes/uploading")
 // env variables are contsant throughout and dotenv package is required for that
 env.config();
 
@@ -64,6 +69,8 @@ app.use("/api",companyaddRoutes);
 app.use("/api",changedetailscompanyuserRoutes);
 app.use("/api",companyuserloginRoutes);
 app.use("/api",changepasscompanymailRoutes)
+app.use("/api", companyUserDetails);
+app.use("/api", companyUserPublicDetails);
 
 
 app.use("/api", showcompanybydistanceRoutes)
@@ -74,7 +81,7 @@ app.use("/api",commentaddRoutes)
 app.use("/api",findcommentsRoutes)
 
 
-
+app.use("/api", uploadingRoutes)
 
 // this can be created from the .env file
 // `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.ihdlx.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`, 

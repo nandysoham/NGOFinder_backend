@@ -18,10 +18,13 @@ exports.createBlog= (req,res,next)=>{
     let blogPictures = [];
     if(req.files.length > 0){
         blogPictures = req.files.map(file =>{
-            return {img : file.filename}
+            return {img : file.path}
         })
+        // attach the first picture as an asset to be sent on mails
+        req.headerImg = req.files[0].path
     }
-    // console.log(req.files);
+    console.log(req.headerImg)
+    console.log(req.files);
     // console.log(blogPictures);
     // am ap is applied here
 

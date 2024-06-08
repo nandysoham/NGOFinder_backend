@@ -22,6 +22,7 @@ router.post("/indiv/public/indivdetails",async (req,res)=>{
                 city : userindiv.city,
                 state : userindiv.state,
                 country : userindiv.country,
+                about: userindiv.about,
                 profilePicture : userindiv.profilePicture[0],
                 joined : userindiv.createdAt
 

@@ -1,12 +1,13 @@
 // https://app.abstractapi.com/api/ip-geolocation/tester
 
+
 var axios = require("axios").default;
 
 
 exports.findLocation = (req,res,next)=>{
     var options = {
         method: 'GET',
-        url: 'https://ipgeolocation.abstractapi.com/v1/?api_key=1c48e1dc09524c769971805d242c5b16',
+        url: `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IPGEOAPI}`,
       };
       
       try {

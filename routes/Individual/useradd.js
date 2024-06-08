@@ -10,17 +10,49 @@ const jwt = require('jsonwebtoken');
 const mailindiv = require("../../controller/Mailer/MailIndiv")
 
 const indivUser = require("../../models/Individual/indivUser")
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(path.dirname(__dirname), '../Useruploads'))
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, path.join(path.dirname(__dirname), '../Useruploads'))
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, shortid.generate() + '-' + file.originalname)  // file.originalname is the property by multer which can be seen from postman
+//     }
+// })
+
+// var upload = multer({ storage: storage })
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  })
+  
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: (req, file) => {
+      const folderPath = `EcoImg/IndivProfile`; // Update the folder path here
+      const fileExtension = path.extname(file.originalname).substring(1);
+      const publicId = `${file.fieldname}-${Date.now()}`;
+      
+      return {
+        folder: folderPath,
+        public_id: publicId,
+        format: fileExtension,
+      };
     },
-    filename: function (req, file, cb) {
-        cb(null, shortid.generate() + '-' + file.originalname)  // file.originalname is the property by multer which can be seen from postman
+  });
+  
+  var upload = multer({ 
+    storage: storage ,
+    limits: {
+      fileSize: 50 * 1024 * 1024, // keep images size < 50 MB
     }
-})
+  })
 
-var upload = multer({ storage: storage })
 
 const JWT_SECRET = "soham$isagoodboy"
 
@@ -51,13 +83,14 @@ router.post('/createuser',
     
         if (req.files.length > 0) {
             profilePicture = req.files.map(file => {
-                return { img: file.filename }
+                return { img: file.path, public_id : file.filename }
             })
         }
 
         user = await indivUser.create({
             name: req.body.name,
             email: req.body.email,
+            about: req.body.about,
             phone: req.body.phone,
             dob: req.body.dob,
             addressline1: req.body.addressline1,

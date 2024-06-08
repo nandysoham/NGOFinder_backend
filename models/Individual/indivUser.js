@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
       type: String,
       required:true
   },
+  about:{
+    type:String
+  },
   email:{
       type:String,
       required:true,
@@ -50,7 +53,7 @@ const userSchema = new mongoose.Schema({
       required:true
   },
   profilePicture :[
-    {img : {type : String}}
+    {img : {type : String}, public_id : {type: String}}
   ]
 ,
   updatedAt : Date,

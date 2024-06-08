@@ -6,13 +6,13 @@ const axios = require("axios")
 
 router.get("/getweather",findLocation,async (req,res)=>{
     const {client_lat, client_long,client_city} = req
-    // console.log(client_lat,client_city,client_long)
-    const key = "451a47774a9c43d5833172836211910"
+    console.log(client_lat,client_city,client_long)
+    const key = ""
 
     var options = {
         method: 'GET',
         // url: `http://api.weatherapi.com/v1/current.json?key=${key} &q=${client_lat},${client_long}&aqi=yes`,
-        url: `http://api.weatherapi.com/v1/current.json?key=${key} &q=${client_city}&aqi=yes`,
+        url: `http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHERAPI} &q=${client_city}&aqi=yes`,
        
       };
 

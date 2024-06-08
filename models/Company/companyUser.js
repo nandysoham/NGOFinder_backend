@@ -10,6 +10,13 @@ const companySchema = new mongoose.Schema({
     type:String,
     required: true
   },
+  about:{
+    type:String,
+    required: true
+  },
+  website:{
+    type: String
+  },
   parentcompany:{
       type:String
   },
@@ -71,7 +78,10 @@ const companySchema = new mongoose.Schema({
       required:true
   },
   companyPictures :[
-    {img : {type : String}}
+    {img : {type : String},
+      public_id : {type : String}
+
+  }
   ]
 ,
   updatedAt : Date,
