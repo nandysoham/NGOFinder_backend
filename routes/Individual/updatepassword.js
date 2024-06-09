@@ -36,7 +36,7 @@ router.post("/indiv/changepass/sendmail", [
 
         const htmlcode = `
             <h2>Hey ${user.name}! Your link for changing Password is </h2>
-            <h3>http://localhost:2000/api/indiv/changepass/${userid}/${savedpasstoken._id}</h3>
+            <h3>${process.env.REACT_APP_BACKEND_URL}2000/api/indiv/changepass/${userid}/${savedpasstoken._id}</h3>
 
             <p> Please don't share this link with anyone </p>
 
