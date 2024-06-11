@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const fetchUser = require("../middleware/fetchindivuser")
+const fetchindivUser = require("../middleware/fetchindivUser")
 const commentsentry = require("../models/commentsentry")
 
-router.post("/comments/add",fetchUser,async(req,res)=>{
+router.post("/comments/add",fetchindivUser,async(req,res)=>{
     const {
         blogid,
         description

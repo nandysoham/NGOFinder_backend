@@ -10,7 +10,7 @@ const {createBlog} = require("../controller/createBlog")
 const {mailer} = require("../controller/sendnewsmail")
 
 // creating a middleware for multer
-const fetchUser = require("../middleware/fetchindivuser")
+const fetchindivUser = require("../middleware/fetchindivUser")
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -56,6 +56,6 @@ var upload = multer({
 
 
 
-router.post('/blog/create',upload.array('blogPictures'),fetchUser,createBlog,mailer)  //upload.single() --> for profile photo
+router.post('/blog/create',upload.array('blogPictures'),fetchindivUser,createBlog,mailer)  //upload.single() --> for profile photo
 
 module.exports = router;

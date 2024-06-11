@@ -7,7 +7,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const mailindiv = require("../../controller/Mailer/MailIndiv")
+const MailIndiv = require("../../controller/Mailer/MailIndiv")
 
 const indivUser = require("../../models/Individual/indivUser")
 const cloudinary = require('cloudinary').v2;
@@ -142,7 +142,7 @@ router.post('/createuser',
 
         }
 
-        mailindiv(params);
+        MailIndiv(params);
 
 
 

@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const fetchUser = require("../../middleware/fetchindivuser")
+const fetchindivUser = require("../../middleware/fetchindivUser")
 
 const indivUser = require("../../models/Individual/indivUser")
 
-router.post("/indiv/getindivdetails",fetchUser,async (req,res)=>{
+router.post("/indiv/getindivdetails",fetchindivUser,async (req,res)=>{
     // res.status(200).json(req.user)
     let success = false
     try {

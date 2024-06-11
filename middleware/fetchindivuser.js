@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = "soham$isagoodboy"
 
-const fetchUser = (req,res,next)=>{
+const fetchindivUser = (req,res,next)=>{
     // get the suer from the jwt token
 
     const token = req.header("auth-token")
@@ -23,4 +23,4 @@ const fetchUser = (req,res,next)=>{
     
 }
 
-module.exports = fetchUser;
+module.exports = fetchindivUser;

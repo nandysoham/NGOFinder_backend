@@ -15,11 +15,11 @@
 
 // Moving to upstash
 const redis = require("redis");
-// var client = redis.createClient({
-//     url : "rediss://default:Ab0JAAIncDFjOTYxMThhZWZiZTk0MzcyYTQzNDA5YzA1Njg2MTZhMnAxNDgzOTM@ethical-hawk-48393.upstash.io:6379"
-// });
+var client = redis.createClient({
+    url : "rediss://default:Ab0JAAIncDFjOTYxMThhZWZiZTk0MzcyYTQzNDA5YzA1Njg2MTZhMnAxNDgzOTM@ethical-hawk-48393.upstash.io:6379"
+});
 
-var client = redis.createClient(6379, 'localhost');
+// var client = redis.createClient(6379, 'localhost');
 
 (async () => {
     await client.connect();

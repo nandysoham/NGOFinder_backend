@@ -13,7 +13,7 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 
-const mailindiv = require("../../controller/Mailer/MailIndiv")
+const MailIndiv = require("../../controller/Mailer/MailIndiv")
 
 const companyUser = require('../../models/Company/companyUser')
 
@@ -153,7 +153,7 @@ router.post('/company/createuser',
 
         }
 
-        mailindiv(params);
+        MailIndiv(params);
 
 
 

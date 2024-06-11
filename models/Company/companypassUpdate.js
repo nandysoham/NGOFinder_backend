@@ -14,5 +14,5 @@ const companypassupdateSchema = new mongoose.Schema({
   updatedAt : Date,
 },{timestamps:true});
 
-const companypassupdate = mongoose.model('companypassupdate', companypassupdateSchema)
-module.exports = companypassupdate
+const companypassUpdate = mongoose.model('companypassUpdate', companypassupdateSchema)
+module.exports = companypassUpdate

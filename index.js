@@ -27,7 +27,7 @@ const companyUserPublicDetails = require("./routes/Company/getPublicDetails")
 
 const showcompanybydistanceRoutes = require("./routes/Company/showcompanies")
 
-const findindivlocationRoutes = require("./routes/findindivLocation")
+const findindivlocationRoutes = require("./routes/findindivlocation")
 const findweatherRoutes = require("./routes/fetchweather")
 
 

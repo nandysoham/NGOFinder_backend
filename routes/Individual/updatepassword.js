@@ -5,9 +5,9 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const mailindiv = require("../../controller/Mailer/MailIndiv")
+const MailIndiv = require("../../controller/Mailer/MailIndiv")
 const indivUser = require("../../models/Individual/indivUser");
-const passUpdate = require('../../models/Individual/passupdate');
+const passUpdate = require('../../models/Individual/passUpdate');
 
 
 const JWT_SECRET = "soham$isagoodboy"
@@ -53,7 +53,7 @@ router.post("/indiv/changepass/sendmail", [
 
 
 
-        mailindiv(params)
+        MailIndiv(params)
         res.status(201).json(savedpasstoken);
 
 
@@ -114,7 +114,7 @@ router.post("/indiv/changepass/:id/:token", async (req, res) => {
 
 
 
-        mailindiv(params)
+        MailIndiv(params)
 
 
         res.status(201).json(updateduser)

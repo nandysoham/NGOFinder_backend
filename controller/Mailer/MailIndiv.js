@@ -29,7 +29,7 @@ env.config({ path: __dirname + '/./../../.env' });
  *  
  * }
  */
-function mailindiv(params) {
+function MailIndiv(params) {
 
     try {
         // preparing the oauth client
@@ -83,7 +83,7 @@ function mailindiv(params) {
 
 }
 
-module.exports = mailindiv
+module.exports = MailIndiv
 // const params = {
 //     to: "nandysoham16@gmail.com",
 //     bcc: "cs20b046@iittp.ac.in",
@@ -91,4 +91,4 @@ module.exports = mailindiv
 //     html : "<h1> hello </h1>"
 // }
 
-// mailindiv(params);
+// MailIndiv(params);

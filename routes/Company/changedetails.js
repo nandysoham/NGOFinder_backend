@@ -3,11 +3,11 @@ const router = express.Router()
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer')  // multer is imported here
-const mailindiv = require("../../controller/Mailer/MailIndiv")
+const MailIndiv = require("../../controller/Mailer/MailIndiv")
 const companyUser = require("../../models/Company/companyUser")
 const path = require('path')
 
-const fetchUser = require("../../middleware/fetchindivUser")
+const fetchindivUser = require("../../middleware/fetchindivUser.js")
 // raw data json body
 
 const cloudinary = require('cloudinary').v2;
@@ -42,7 +42,7 @@ var upload = multer({
     }
 })
 
-router.put('/company/updateuserdetails', fetchUser, upload.array('companyPictures'), async (req, res) => {
+router.put('/company/updateuserdetails', fetchindivUser, upload.array('companyPictures'), async (req, res) => {
 
     try {
         const {
@@ -212,7 +212,7 @@ router.put('/company/updateuserdetails', fetchUser, upload.array('companyPicture
             html: htmlcode
         }
 
-        mailindiv(params)
+        MailIndiv(params)
 
     } catch (error) {
         console.log(error);

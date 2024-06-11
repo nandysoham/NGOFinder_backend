@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ngofinder_backend
+    container_name: ngofinder_backend_c
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PORT = 
+      - MONGOURI = 
+      - JWT_SECRET = 
+      - IPGEOAPI = 
+      - WEATHERAPI = 
+      - CLIENTID=
+      - CLIENTSECRET=
+      - REFRESHTOKEN=
+      - EMAIL=
+      - CLOUDINARY_CLOUD_NAME = 
+      - CLOUDINARY_API_KEY = 
+      - CLOUDINARY_API_SECRET = 
+      - REDIS_UPSTASH_URL = 
+    ports:
+      - "2000:2000"
+

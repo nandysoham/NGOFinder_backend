@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const fetchUser = require("../../middleware/fetchindivuser")
+const fetchindivUser = require("../../middleware/fetchindivUser")
 
 const indivUser = require("../../models/Individual/indivUser")
 

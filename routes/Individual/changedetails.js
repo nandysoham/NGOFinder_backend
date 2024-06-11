@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer')  // multer is imported here
 const path = require('path')
 
-const mailindiv = require("../../controller/Mailer/MailIndiv")
+const MailIndiv = require("../../controller/Mailer/MailIndiv")
 const indivUser = require("../../models/Individual/indivUser")
 
-const fetchUser = require("../../middleware/fetchindivuser")
+const fetchindivUser = require("../../middleware/fetchindivUser")
 // raw data json body
 
 
@@ -44,7 +44,7 @@ var upload = multer({
         fileSize: 50 * 1024 * 1024, // keep images size < 50 MB
     }
 })
-router.put('/indiv/updateuserdetails', fetchUser, upload.array('profilePicture'), async (req, res) => {
+router.put('/indiv/updateuserdetails', fetchindivUser, upload.array('profilePicture'), async (req, res) => {
 
     try {
         const {
@@ -162,7 +162,7 @@ router.put('/indiv/updateuserdetails', fetchUser, upload.array('profilePicture')
             html:htmlcode
         }
 
-        mailindiv(params)
+        MailIndiv(params)
 
     } catch (error) {
         console.log(error);
