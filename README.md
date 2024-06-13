@@ -41,11 +41,15 @@ REDIS_UPSTASH_URL=
 
 ### Build from nodejs
 ```
-git pull
+git clone git@github.com:nandysoham/NGOFinder_backend.git 
 cd path/to/directory
 npm install
 // create file .env in the folder NGOfinder_backend
 npm start
 ```
+
+## API calls:
+Detailed list of APIs can be found by forking 
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/15044008-aa5bd1ec-246d-47ca-8641-1bd9f6e8f00d?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D15044008-aa5bd1ec-246d-47ca-8641-1bd9f6e8f00d%26entityType%3Dcollection%26workspaceId%3D6aa4f94f-f5a0-435a-a46c-e8785966149d)
 
 
